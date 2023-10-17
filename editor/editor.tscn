@@ -141,7 +141,6 @@ custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
 [node name="Panel2" type="Panel" parent="CanvasLayer"]
-anchors_preset = -1
 offset_right = 98.0
 offset_bottom = 34.0
 size_flags_horizontal = 0

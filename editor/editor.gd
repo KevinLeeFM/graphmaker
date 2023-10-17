@@ -126,7 +126,7 @@ func load_nodes():
         var file = FileAccess.open(project_path + "/nodes.csv", FileAccess.READ)
         var content = file.get_as_text()
         
-        var lines = content.split("\r\n", true)
+        var lines = content.split("\n", true)
         
         var names_to_nodes = {}
         
@@ -135,20 +135,21 @@ func load_nodes():
             print(l)
             var fields = l.split(",", true)
             
-            var room_name: String = fields[0]
-            var x: float = float(fields[1])
-            var y: float = float(fields[2])
-            var is_exit: bool = (fields[3] == 'true')
-            
-            var n = roomnode_scene.instantiate()
-            
-            n.room_name = room_name
-            n.set_global_position(Vector2(x, y))
-            n.is_exit = is_exit
-            
-            self.add_child(n)
-            
-            names_to_nodes[room_name] = n
+            if len(fields) == 4:
+                var room_name: String = fields[0]
+                var x: float = float(fields[1])
+                var y: float = float(fields[2])
+                var is_exit: bool = (fields[3] == 'true')
+                
+                var n = roomnode_scene.instantiate()
+                
+                n.room_name = room_name
+                n.set_global_position(Vector2(x, y))
+                n.is_exit = is_exit
+                
+                self.add_child(n)
+                
+                names_to_nodes[room_name] = n
             
         return names_to_nodes
     
@@ -182,52 +183,52 @@ func load_edges(names_to_nodes):
         var file = FileAccess.open(project_path + "/edges.csv", FileAccess.READ)
         var content = file.get_as_text()
         
-        var lines = content.split("\r\n", true)
+        var lines = content.split("\n", true)
         
         # start_floor,start_room_name,end_floor,end_room_name
         for l in lines.slice(1):
-            print(l)
             var fields = l.split(",", true)
             
-            var start_floor: String = fields[0]
-            var start_room_name: String = fields[1]
-            var end_floor: String = fields[2]
-            var end_room_name: String = fields[3]
-            
-            # TODO: also check if on same floor as ours
-#            if not (start_room_name in names_to_nodes or end_room_name in names_to_nodes):
-#                # this edge is stray. We ignore it
-#                continue
-#
-#            if not (start_floor == floor_name or end_floor == floor_name):
-#                # this edge is stray. We ignore it
-#                continue
-            
-            var extraneous = false
-            
-            if not (start_room_name in names_to_nodes) or not (start_floor == floor_name):
-                if (end_room_name in names_to_nodes):
-                    names_to_nodes[end_room_name].extra_connections.append([start_floor, start_room_name])
+            if len(fields) == 4:
+                var start_floor: String = fields[0]
+                var start_room_name: String = fields[1]
+                var end_floor: String = fields[2]
+                var end_room_name: String = fields[3]
                 
-                extraneous = true
-            
-            
-            if not (end_room_name in names_to_nodes) or not (end_floor == floor_name):
-                if (start_room_name in names_to_nodes):
-                    names_to_nodes[start_room_name].extra_connections.append([end_floor, end_room_name])
+                # TODO: also check if on same floor as ours
+    #            if not (start_room_name in names_to_nodes or end_room_name in names_to_nodes):
+    #                # this edge is stray. We ignore it
+    #                continue
+    #
+    #            if not (start_floor == floor_name or end_floor == floor_name):
+    #                # this edge is stray. We ignore it
+    #                continue
                 
-                extraneous = true
+                var extraneous = false
                 
-            if extraneous: continue
+                if not (start_room_name in names_to_nodes) or not (start_floor == floor_name):
+                    if (end_room_name in names_to_nodes):
+                        names_to_nodes[end_room_name].extra_connections.append([start_floor, start_room_name])
+                    
+                    extraneous = true
                 
-            
-            var edge_nodes = [names_to_nodes[start_room_name], names_to_nodes[end_room_name]]
-            var roomedge = roomedge_scene.instantiate()
-            roomedge.connections = edge_nodes
-            self.add_child(roomedge)
-            
-            edge_nodes[0].connection[edge_nodes[1]] = roomedge
-            edge_nodes[1].connection[edge_nodes[0]] = roomedge
+                
+                if not (end_room_name in names_to_nodes) or not (end_floor == floor_name):
+                    if (start_room_name in names_to_nodes):
+                        names_to_nodes[start_room_name].extra_connections.append([end_floor, end_room_name])
+                    
+                    extraneous = true
+                    
+                if extraneous: continue
+                    
+                
+                var edge_nodes = [names_to_nodes[start_room_name], names_to_nodes[end_room_name]]
+                var roomedge = roomedge_scene.instantiate()
+                roomedge.connections = edge_nodes
+                self.add_child(roomedge)
+                
+                edge_nodes[0].connection[edge_nodes[1]] = roomedge
+                edge_nodes[1].connection[edge_nodes[0]] = roomedge
         
         return
    
