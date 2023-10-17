@@ -1,0 +1,201 @@
+[gd_scene load_steps=9 format=3 uid="uid://bywswhu0y4tec"]
+
+[ext_resource type="Script" path="res://editor/editor.gd" id="1_umpdi"]
+[ext_resource type="Script" path="res://editor/MovableCamera.gd" id="2_ajdyp"]
+[ext_resource type="Texture2D" uid="uid://bw2kp0ihajmta" path="res://assets/Close.svg" id="4_kltw1"]
+[ext_resource type="Texture2D" uid="uid://buv0bl7jabmqc" path="res://assets/Remove.svg" id="5_sfa8c"]
+[ext_resource type="Script" path="res://editor/LoadButton.gd" id="6_gsdi1"]
+[ext_resource type="Script" path="res://editor/SaveButton.gd" id="7_0kwm3"]
+[ext_resource type="Script" path="res://editor/LoadErrorDialog.gd" id="7_vcigl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5h0uu"]
+bg_color = Color(0.239216, 0.239216, 0.239216, 1)
+
+[node name="EditorView" type="Node2D" groups=["editor"]]
+script = ExtResource("1_umpdi")
+
+[node name="Layout" type="Node2D" parent="."]
+
+[node name="LayoutTextureRect" type="TextureRect" parent="Layout"]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_ajdyp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.703
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5h0uu")
+
+[node name="Toolbar" type="VBoxContainer" parent="CanvasLayer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Panel/Toolbar"]
+layout_mode = 2
+
+[node name="DeselectButton" type="Button" parent="CanvasLayer/Panel/Toolbar/HBoxContainer3"]
+layout_mode = 2
+tooltip_text = "Deselect the node"
+text = "Deselect"
+icon = ExtResource("4_kltw1")
+
+[node name="DeleteButton" type="Button" parent="CanvasLayer/Panel/Toolbar/HBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.219608, 0.145098, 1)
+theme_override_colors/icon_normal_color = Color(1, 0.219608, 0.145098, 1)
+text = "Delete"
+icon = ExtResource("5_sfa8c")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/Toolbar"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/Toolbar/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Name"
+
+[node name="NameTextEdit" type="TextEdit" parent="CanvasLayer/Panel/Toolbar/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Panel/Toolbar"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/Toolbar/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Is Exit"
+
+[node name="ExitCheckBox" type="CheckBox" parent="CanvasLayer/Panel/Toolbar/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VSeparator" type="HSeparator" parent="CanvasLayer/Panel/Toolbar"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/Toolbar"]
+layout_mode = 2
+text = "Extra connections"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/Panel/Toolbar"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/Toolbar/HBoxContainer4"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Floor Name"
+
+[node name="ECFloorName" type="TextEdit" parent="CanvasLayer/Panel/Toolbar/HBoxContainer4"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="CanvasLayer/Panel/Toolbar"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/Toolbar/HBoxContainer5"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Room name"
+
+[node name="ECRoomName" type="TextEdit" parent="CanvasLayer/Panel/Toolbar/HBoxContainer5"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="CanvasLayer/Panel/Toolbar"]
+layout_mode = 2
+
+[node name="ECAddButton" type="Button" parent="CanvasLayer/Panel/Toolbar/HBoxContainer6"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add connection"
+
+[node name="ECRemoveButton" type="Button" parent="CanvasLayer/Panel/Toolbar/HBoxContainer6"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Remove selected"
+
+[node name="ECItemList" type="ItemList" parent="CanvasLayer/Panel/Toolbar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="CanvasLayer"]
+anchors_preset = -1
+offset_right = 98.0
+offset_bottom = 34.0
+size_flags_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LoadButton" type="Button" parent="CanvasLayer/Panel2/HBoxContainer"]
+layout_mode = 2
+text = "Load"
+flat = true
+script = ExtResource("6_gsdi1")
+
+[node name="LoadFileDialog" type="FileDialog" parent="CanvasLayer/Panel2/HBoxContainer/LoadButton"]
+title = "Open a Directory"
+initial_position = 2
+size = Vector2i(600, 700)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[node name="LoadErrorDialog" type="AcceptDialog" parent="CanvasLayer/Panel2/HBoxContainer/LoadButton"]
+unique_name_in_owner = true
+title = "Load error"
+initial_position = 2
+dialog_text = "This folder is missing a layout.png. Please download your layout image and place it into this folder for editing the floor."
+script = ExtResource("7_vcigl")
+
+[node name="SaveButton" type="Button" parent="CanvasLayer/Panel2/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Save"
+flat = true
+script = ExtResource("7_0kwm3")
+
+[node name="SaveSuccessfulDialog" type="AcceptDialog" parent="CanvasLayer/Panel2/HBoxContainer/SaveButton"]
+title = "Save successful"
+initial_position = 2
+size = Vector2i(283, 100)
+dialog_text = "The layout has been successfully saved."
+
+[connection signal="pressed" from="CanvasLayer/Panel/Toolbar/HBoxContainer3/DeselectButton" to="." method="_on_deselect_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/Toolbar/HBoxContainer3/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="text_changed" from="CanvasLayer/Panel/Toolbar/HBoxContainer/NameTextEdit" to="." method="_on_name_text_edit_text_changed"]
+[connection signal="pressed" from="CanvasLayer/Panel/Toolbar/HBoxContainer2/ExitCheckBox" to="." method="_on_exit_check_box_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/Toolbar/HBoxContainer6/ECAddButton" to="." method="_on_ec_add_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/Toolbar/HBoxContainer6/ECRemoveButton" to="." method="_on_ec_remove_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel2/HBoxContainer/LoadButton" to="CanvasLayer/Panel2/HBoxContainer/LoadButton" method="_on_pressed"]
+[connection signal="dir_selected" from="CanvasLayer/Panel2/HBoxContainer/LoadButton/LoadFileDialog" to="." method="_on_load_file_dialog_dir_selected"]
+[connection signal="pressed" from="CanvasLayer/Panel2/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel2/HBoxContainer/SaveButton" to="CanvasLayer/Panel2/HBoxContainer/SaveButton" method="_on_pressed"]

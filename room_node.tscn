@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://cedkkt5ni47sw"]
+
+[ext_resource type="Script" path="res://GraphNode2.gd" id="1_w7f56"]
+
+[node name="GraphNode2" type="GraphNode"]
+offset_left = 96.0
+offset_top = 144.0
+offset_right = 248.0
+offset_bottom = 198.0
+mouse_filter = 1
+mouse_default_cursor_shape = 13
+position_offset = Vector2(96, 144)
+resizable = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_w7f56")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+
+[node name="ContextMenu" type="Node2D" parent="."]
+visible = false
+
+[node name="RenameButton" type="Button" parent="ContextMenu"]
+offset_top = 64.0
+offset_right = 72.0
+offset_bottom = 95.0
+text = "Rename"
+
+[connection signal="node_deselected" from="." to="." method="_on_node_deselected"]
+[connection signal="node_selected" from="." to="." method="_on_node_selected"]
+[connection signal="pressed" from="ContextMenu/RenameButton" to="." method="_on_rename_button_pressed"]

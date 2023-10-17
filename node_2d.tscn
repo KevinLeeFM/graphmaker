@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://cglb6stk2s1xq"]
+
+[ext_resource type="PackedScene" uid="uid://cedkkt5ni47sw" path="res://room_node.tscn" id="2_0fj0u"]
+[ext_resource type="Texture2D" uid="uid://r3515betpjm1" path="res://assets/e7_l1.png" id="2_penr3"]
+
+[sub_resource type="Theme" id="Theme_hvc00"]
+
+[node name="Node2D" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GraphEdit" type="GraphEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+arrange_nodes_button_hidden = true
+
+[node name="GraphNode3" parent="GraphEdit" instance=ExtResource("2_0fj0u")]
+layout_mode = 2
+offset_right = 212.0
+
+[node name="GraphNode2" parent="GraphEdit" instance=ExtResource("2_0fj0u")]
+layout_mode = 0
+offset_left = 312.0
+offset_right = 504.0
+position_offset = Vector2(312, 144)
+
+[node name="GraphNode" type="GraphNode" parent="GraphEdit"]
+z_index = -1
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+mouse_filter = 1
+theme = SubResource("Theme_hvc00")
+draggable = false
+selectable = false
+metadata/_edit_lock_ = true
+
+[node name="Node2D" type="Node2D" parent="GraphEdit/GraphNode"]
+metadata/_edit_lock_ = true
+
+[node name="TextureRect" type="TextureRect" parent="GraphEdit/GraphNode/Node2D"]
+offset_right = 1371.0
+offset_bottom = 646.0
+texture = ExtResource("2_penr3")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true

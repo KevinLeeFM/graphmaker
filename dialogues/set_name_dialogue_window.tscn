@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://bntimxqa1fwkh"]
+
+[ext_resource type="Script" path="res://SetNameDialogueWindow.gd" id="1_xn3qb"]
+
+[node name="SetNameDialogueWindow" type="Window"]
+title = "Set Name"
+initial_position = 2
+size = Vector2i(300, 100)
+transient = true
+script = ExtResource("1_xn3qb")
+
+[node name="Control" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextEdit" type="TextEdit" parent="Control"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+placeholder_text = "Room name"
+
+[node name="Button" type="Button" parent="Control"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Done"
+
+[connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]

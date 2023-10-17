@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu58awf6owcm8"]
+
+[ext_resource type="Script" path="res://editor/room_edge.gd" id="1_u4swj"]
+
+[node name="RoomEdge" type="Line2D" groups=["room_edge"]]
+points = PackedVector2Array(24, 16, 128, 40, 96, 88, 24, 104, -16, 72)
+width = 2.0
+default_color = Color(0, 0.584314, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+script = ExtResource("1_u4swj")

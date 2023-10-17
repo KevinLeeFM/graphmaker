@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dcuf1k2o32wht"]
+
+[node name="banana" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="GraphNode" type="GraphNode" parent="."]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 54.0
